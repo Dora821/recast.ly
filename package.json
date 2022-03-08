@@ -7,7 +7,8 @@
   "private": true,
   "scripts": {
     "test": "live-server --open=./SpecRunner.html --port=8081",
-    "postinstall": "curl -s https://raw.githubusercontent.com/reactorcore/pomander/master/bin/install | bash"
+    "postinstall": "curl -s https://raw.githubusercontent.com/reactorcore/pomander/master/bin/install | bash",
+    "build": "babel . --out-dir=compiled --presets=@babel/preset-react --ignore=node_modules,compiled --source-maps=inline -w"
   },
   "dependencies": {
     "bootstrap": "^4.5.3",
@@ -22,8 +23,8 @@
     "@babel/core": "^7.12.3",
     "@babel/preset-react": "^7.12.1",
     "chai": "^4.2.0",
-    "live-server": "^1.2.1",
-    "mocha": "^8.2.1",
+    "live-server": "^1.1.0",
+    "mocha": "^9.2.1",
     "react-test-renderer": "^16.14.0",
     "sinon": "^9.2.1"
   }
