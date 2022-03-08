@@ -4,18 +4,18 @@ $.ajaxPrefilter(function (settings, _, jqXHR) {
   jqXHR.setRequestHeader('Authorization', API_KEY);
 });
 
-console.log(YOUTUBE_API_KEY);
-
-var searchYouTube = (query, callback, errorCB = null) => {
+var searchYouTube = (query, callback) => {
   $.ajax({
     url: 'https://app-hrsei-api.herokuapp.com/api/recastly/videos',
     type: 'GET',
-    data: 'cat',
+    data: query,
+    // dataType: 'jsonp',
     //contentType: 'application/json',
-    dataType: 'json',
-    success: console.log(''),
-    error: console.log('') || function(error) {
-      console.error('chatterbox: Failed to fetch message', error);
+    success: function() {
+      callback();
+    },
+    error: function() { console.log(''); } || function(error) {
+      console.error('SearchYoutube: Failed to fetch message', error);
     }
   });
 };

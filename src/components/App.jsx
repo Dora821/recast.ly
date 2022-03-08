@@ -2,11 +2,19 @@ import exampleVideoData from '../data/exampleVideoData.js';
 import Search from './Search.js';
 import VideoPlayer from './VideoPlayer.js';
 import VideoList from './VideoList.js';
+import searchYouTube from '../lib/searchYouTube.js';
+
 
 class App extends React.Component {
   constructor(props) {
+    console.log(props.liveData);
     super(props);
-    this.state = {allVideos: exampleVideoData, currentVideo: exampleVideoData[0]};
+    this.state = {allVideos: exampleVideoData, currentVideo: exampleVideoData[0], searchKey: ''};
+  }
+  submitClick() {
+    var newKey = document.querySelector('.form-control').value;
+    this.setState({allVideos: exampleVideoData, currentVideo: exampleVideoData[0], searchKey: newKey});
+    console.log('search clicked');
   }
 
   SelectVideo(event) {
@@ -19,7 +27,7 @@ class App extends React.Component {
     // passToVideo.title = document.eventtarget.videoID.value;
     // return passToVideo
 
-    console.log('selectVideo' + selectVideo);
+    // console.log('selectVideo' + selectVideo);
   }
   findViedoWithTitle(title) {
     // console.log('inputtitle :' + title);
@@ -37,7 +45,7 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <Search />
+            <Search searchKey={this.submitClick.bind(this)}/>
           </div>
         </nav>
         <div className="row">
