@@ -1,28 +1,42 @@
-class VideoListEntry extends React.Component {
-  constructor(props) {
-    super(props);
-    const videoTitle = prop.items.snippet.title;
-    const videoDes = prop.items.snippet.description;
-    const targetURL = prop.items.snippet.thumbnails.default.url;
-    this.state = {
-    };
-  }
-  OnListItemClick() {
+var VideoListEntry = (props) => {
+  return (<div className="video-list-entry media">
+    <div className="media-left media-middle">
+      <img className="media-object" src={props.video.snippet.thumbnails.default.url} alt="" />
+    </div>
+    <div className="media-body">
+      {/* add event listener for title */}
+      <div className="video-list-entry-title" onClick={props.eventHandler}>{props.video.snippet.title}</div>
+      <div className="video-list-entry-detail">{props.video.snippet.description}</div>
+    </div>
+  </div>);
+};
 
-  }
-  render() {
-    return (
-      <div className="video-list-entry media">
-        <div className="media-left media-middle">
-          <img className="media-object" src={targetURL} alt="" />
-        </div>
-        <div className="media-body">
-          <div className="video-list-entry-title"><em>{videoTitle}</em></div>
-          <div className="video-list-entry-detail">{videoDes}</div>
-        </div>
-      </div>);
-  }
-}
+// class VideoListEntry extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.videoTitle = props.items.snippet.title;
+//     this.videoDes = props.items.snippet.description;
+//     this.targetURL = props.items.snippet.thumbnails.default.url;
+//     this.state = {
+//     };
+//   }
+//   OnListItemClick() {
+
+//   }
+//   render() {
+//     return (
+//       <div className="video-list-entry media">
+//         <div className="media-left media-middle">
+//           <img className="media-object" src={this.targetURL} alt="" />
+//         </div>
+//         <div className="media-body">
+//           {/* add event listener for title */}
+//           <div className="video-list-entry-title"><em>{this.videoTitle}</em></div>
+//           <div className="video-list-entry-detail">{this.videoDes}</div>
+//         </div>
+//       </div>);
+//   }
+// }
 
 
 
