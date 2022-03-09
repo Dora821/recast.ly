@@ -7,42 +7,41 @@ import searchYouTube from '../lib/searchYouTube.js';
 
 class App extends React.Component {
   constructor(props) {
-    console.log(props.liveData);
+    // console.log(props.liveData);
     super(props);
     this.state = {allVideos: [], currentVideo: exampleVideoData[0], searchKey: ''};
-    searchYouTube('beef curry', (data) => {
-      this.setState({allVideos: data, currentVideo: exampleVideoData[0], searchKey: ''});
-      console.log(data);
-    });
-  }
-  submitClick() {
-    this.setState.bind(this);
-    var newKey = document.querySelector('.form-control').value;
-    this.setState({allVideos: exampleVideoData, currentVideo: exampleVideoData[0], searchKey: newKey});
-    var callBack = (data) => {
-      this.setState({allVideos: data, currentVideo: exampleVideoData[0], searchKey: ''});
-      console.log(data);
-    };
-    searchYouTube(newKey, callBack);
-    // console.log(newKey);
+    setInterval(this.renderVideo('beef'), 500);
   }
 
+  // set up a render function to fetch data from API
+  renderVideo(keyTitle) {
+    var callBack = (data) => {
+      this.setState({allVideos: data, currentVideo: exampleVideoData[0], searchKey: ''});
+    };
+    searchYouTube(keyTitle, callBack);
+  }
+
+  // Cerate a handleclicker to render video based on the input from search bar
+  submitClick() {
+    var newKey = document.querySelector('.form-control').value;
+    this.renderVideo(newKey);
+  }
+
+  // change this.state and pass the selectedvideo title to videoplayer when listEntry title is selected
   SelectVideo(event) {
     var passToVideoTitle = event.target.textContent;
     // console.log('event.target.textcontent' + event.target.textContent);
     var selectVideo = this.findViedoWithTitle(passToVideoTitle);
-    this.setState({allVideos: exampleVideoData, currentVideo: selectVideo});
-    // var passToVideo = {}
-    // passToVideo.id = document.eventtarget.videoID.value;
-    // passToVideo.title = document.eventtarget.videoID.value;
-    // return passToVideo
-
+    // console.log('selectVideo' + selectVideo);
+    this.setState({currentVideo: selectVideo});
     // console.log('selectVideo' + selectVideo);
   }
+
+  // helper function, when click the tile on video entry and get the title name, we locate the specific video object and return the object
   findViedoWithTitle(title) {
     // console.log('inputtitle :' + title);
-    for (var each of exampleVideoData) {
-      // console.log('each title :' + each.snippet.title);
+    for (var each of this.state.allVideos) {
+      // console.log('each title :' + each);
       if (each.snippet.title === title) {
         // console.log('each : ', each);
         return each;
@@ -50,6 +49,8 @@ class App extends React.Component {
     }
     // console.log('did not find Video');
   }
+
+  // render function to render the whole combinated element to the DOM
   render() {
     return (
       <div>
@@ -71,24 +72,6 @@ class App extends React.Component {
   }
 }
 
-// }= () => (
-//   <div>
-//     <nav className="navbar">
-//       <div className="col-md-6 offset-md-3">
-//         <Search />
-//       </div>
-//     </nav>
-//     <div className="row">
-//       <div className="col-md-7">
-//         <VideoPlayer currentVideo={exampleVideoData} />
-//       </div>
-//       <div className="col-md-5">
-//         <VideoList videoArray = {exampleVideoData}/>
-//       </div>
-//     </div>
-//   </div>
-// );
-console.log(exampleVideoData);
 // In the ES6 spec, files are "modules" and do not share a top-level scope
 // `var` declarations will only exist globally where explicitly defined
 export default App;

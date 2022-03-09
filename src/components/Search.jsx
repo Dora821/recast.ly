@@ -1,5 +1,5 @@
 var Search = (props) => {
-  console.log(props.searchKey);
+  // console.log(props.searchKey);
   return (
     <div className="search-bar form-inline">
       <input className="form-control" type="text" onClick={props.searchKey} />
