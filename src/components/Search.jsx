@@ -2,8 +2,8 @@ var Search = (props) => {
   console.log(props.searchKey);
   return (
     <div className="search-bar form-inline">
-      <input className="form-control" type="text" />
-      <button onClick={props.searchKey} className="btn hidden-sm-down">
+      <input className="form-control" type="text" onClick={props.searchKey} />
+      <button className="btn hidden-sm-down">
         <span onClick={props.searchKey} className="glyphicon glyphicon-search"></span>
       </button>
     </div>);

@@ -9,12 +9,22 @@ class App extends React.Component {
   constructor(props) {
     console.log(props.liveData);
     super(props);
-    this.state = {allVideos: exampleVideoData, currentVideo: exampleVideoData[0], searchKey: ''};
+    this.state = {allVideos: [], currentVideo: exampleVideoData[0], searchKey: ''};
+    searchYouTube('beef curry', (data) => {
+      this.setState({allVideos: data, currentVideo: exampleVideoData[0], searchKey: ''});
+      console.log(data);
+    });
   }
   submitClick() {
+    this.setState.bind(this);
     var newKey = document.querySelector('.form-control').value;
     this.setState({allVideos: exampleVideoData, currentVideo: exampleVideoData[0], searchKey: newKey});
-    console.log('search clicked');
+    var callBack = (data) => {
+      this.setState({allVideos: data, currentVideo: exampleVideoData[0], searchKey: ''});
+      console.log(data);
+    };
+    searchYouTube(newKey, callBack);
+    // console.log(newKey);
   }
 
   SelectVideo(event) {
@@ -53,7 +63,7 @@ class App extends React.Component {
             <VideoPlayer video={this.state.currentVideo} />
           </div>
           <div className="col-md-5">
-            <VideoList videos = {exampleVideoData} eventHandler = {this.SelectVideo.bind(this)}/>
+            <VideoList videos = {this.state.allVideos} eventHandler = {this.SelectVideo.bind(this)}/>
           </div>
         </div>
       </div>
